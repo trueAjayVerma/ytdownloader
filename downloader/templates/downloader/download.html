@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Download Options</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #555;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .thumbnail-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        @media (max-width: 600px) {
+            .thumbnail-container {
+                width: 80%;
+            }
+        }
+        table {
+            width: 100%;
+            max-width: 600px;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .btn {
+            background-color: #ff4c4c;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #ff1a1a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Video Details</h1>
+    {% if video_info %}
+        <h2>{{ video_info.title }}</h2>
+        <div class="thumbnail-container">
+            <img src="{{ video_info.thumbnail }}" alt="Video Thumbnail">
+        </div>
+        <table>
+            <tr>
+                <th>Format</th>
+                <th>Extension</th>
+                <th>Size</th>
+                <th>Download</th>
+            </tr>
+            {% for format in video_info.formats %}
+            <tr>
+                <td>{{ format.format }}</td>
+                <td>{{ format.ext }}</td>
+                <td>{{ format.filesize }} MB</td>
+                <td>
+                    <a class="btn" href="{{ format.url }}" download>Download</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No video information available.</p>
+    {% endif %}
+</body>
+</html>
